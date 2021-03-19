@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
-const procurementRoutes = require("./routes/procurement");
+const manufacturerRoutes = require("./routes/manufacturer");
+const authRoutes = require("./routes/auth");
 
 connectDB();
 
@@ -15,7 +16,8 @@ app.get("/", (req, res) => {
   res.send("API running!");
 });
 
-app.use("/procurement", procurementRoutes);
+app.use("/manufacturer", manufacturerRoutes);
+app.use("/auth", authRoutes);
 
 const port = process.env.PORT || 3000;
 

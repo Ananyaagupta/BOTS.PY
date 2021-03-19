@@ -28,9 +28,9 @@ const AgreementSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  procurement: {
+  manufacturer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "procurement",
+    ref: "manufacturer",
   },
   vendor: {
     type: mongoose.Schema.Types.ObjectId,
@@ -38,4 +38,4 @@ const AgreementSchema = new mongoose.Schema({
   },
 });
 
-module.exports = new mongoose.model("agreement", AgreementSchema);
+module.exports = mongoose.model("agreement", AgreementSchema);

@@ -1,35 +1,70 @@
 const express = require("express");
 const router = express.Router();
-const Procurement = require("./../models/Procurement");
+const Manufacturer = require("./../models/Manufacturer");
 const Vendor = require("./../models/Vendor");
-router.post("/",async (req, res) => {
-        const { name,email, password,type } = req.body;
-        
-        try {
-            if(type==="Procurement")
-            {
-                procurement = new Procurement({
-                    name,
-                    email,
-                    password
-                });
-                await procurement.save();
-                res.send(procurement._id)
-            }
-            else if(type==="Vendor")
-            {
-                const vendor = new Vendor({
-                    name,
-                    email,
-                    password
-                });
-                await vendor.save();
-                res.send(vendor._id)
-            }            
-        } catch (err) {
-            console.log(err.message);
-            res.status(500).send("Server Error!");
+const bcrypt = require("bcryptjs");
+
+router.post("/", async (req, res) => {
+  const { name, email, password, type, rawMaterials } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+  try {
+    if (type === "manufacturer") {
+      var manufacturer = new Manufacturer({
+        name,
+        email,
+        password: hashPassword,
+      });
+      await manufacturer.save();
+      res.json({ manufacturer });
+    } else if (type === "vendor") {
+      var vendor = new Vendor({
+        name,
+        email,
+        password: hashPassword,
+        rawMaterials,
+      });
+
+      await vendor.save();
+      res.json({ vendor });
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error!");
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const { email, password, type } = req.body;
+  // console.log(req.body);
+  try {
+    if (type === "Manufacturer") {
+      const manufacturer = await Manufacturer.findOne({ email });
+      if (manufacturer) {
+        const isMatched = await bcrypt.compare(password, manufacturer.password);
+        if (!isMatched) {
+          return req.json({ msg: "Not Authorized!" });
         }
+        return res.json({ manufacturer });
+      } else {
+        res.json({ msg: "Not Found!" });
+      }
+    } else if (type === "Vendor") {
+      const vendor = await Vendor.findOne({ email });
+      if (vendor) {
+        const isMatched = await bcrypt.compare(password, vendor.password);
+        if (!isMatched) {
+          return req.json({ msg: "Not Authorized!" });
         }
-  );
-  module.exports = router;
+        return res.json({ vendor });
+      } else {
+        res.json({ msg: "Not Found!" });
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    res.send("Error!");
+  }
+});
+
+module.exports = router;

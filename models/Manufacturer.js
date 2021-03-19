@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const VendorSchema = new mongoose.Schema({
+const ManufacturerSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -13,7 +13,6 @@ const VendorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rawMaterials: [{ type: String, required: true }],
 });
 
-module.exports = mongoose.model("vendor", VendorSchema);
+module.exports = mongoose.model("manufacturer", ManufacturerSchema);
