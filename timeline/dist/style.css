@@ -1,0 +1,47 @@
+/**********
+ *
+ * Please, go to the bottom part of the page to see the skeleton effect :)
+ *
+ **********/
+.my-pic {
+  top: -70px;
+}
+
+.my-skeleton-img {
+  background-color: var(--gray);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%
+}
+
+.my-skeleton-card {
+  animation: my-skeleton 2s infinite;
+}
+
+.my-skeleton {
+  opacity: 0.25;
+}
+
+.my-skeleton-link {
+  background-color: var(--primary);
+  width: 150px;
+  height: 1.25rem;
+}
+
+.my-skeleton-at-mark {
+  background-color: var(--gray);
+  width: 100px;
+  height: 1rem;
+}
+
+.my-skeleton-content {
+  background-color: var(--dark);
+  width: 100%;
+  height: 200px;
+}
+
+@keyframes my-skeleton {
+  50% {
+    opacity: 0.5;
+  }
+}
