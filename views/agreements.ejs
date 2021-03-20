@@ -2,9 +2,12 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>timeline</title>
+  <title>All Agreements</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'><link rel="stylesheet" href="/styles/profile.css">
-
+  <script
+      src="https://kit.fontawesome.com/e26494b487.js"
+      crossorigin="anonymous"
+    ></script>
 </head>
 <body>
 
@@ -13,11 +16,15 @@
  <div class="head" style="position:absolute; left:100px"><H3>AGREEMI</H3></div>
   <div class="nav-logo" > 
  </div>
-  <div class="nav-content float">
+  <div class="nav-content d-flex">
   <ul class="navbar-nav" >
     <li class="nav-item">
-      <a class="nav-link active" href="/home.html"><i class="fas fa-home fa-2x"></i></a>
-    </li></ul></div>
+      <a class="nav-link active" href="/manufacturer/expiring-agreements"><i class="fas fa-home fa-2x"></i></a>
+    </li>
+    </ul>
+    <div>
+      <a class="nav-link active" href="/auth/logout">Logout</a>
+    </div></div>
     
  
    
@@ -42,15 +49,49 @@
       </div>
       <div class="card shadow mb-3">
         <div class="card-body">
-          <h5><a href ="">AGREEMENTS</a></h5>
+          <% if(currentMan) {%>
+            <h5><a href ="/manufacturer/all-agreements">ALL AGREEMENTS</a></h5>
+          <% } %>
+          <% if(currentVendor) {%>
+            <h5><a href ="/vendor/accepted-agreements">ALL AGREEMENTS</a></h5>
+          <% } %>
           <p><br><small class="text-muted"></small></p>
 
 
           
         </div>
-        <div class="card-footer">
-          <a href="#">Find more</a>
+      </div>
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <% if(currentMan) {%>
+            <h5><a href ="/manufacturer/pending">PENDING</a></h5>
+          <% } %>
+          <% if(currentVendor) {%>
+            <h5><a href ="/vendor/pending">PENDING</a></h5>
+          <% } %>
+          <p><br><small class="text-muted"></small></p>
+          
         </div>
+        <!-- <div class="card-footer">
+          <a href="#">Find more</a>
+        </div> -->
+      </div>
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <% if(currentMan) {%>
+            <h5><a href ="/manufacturer/updates">UPDATES</a></h5>
+          <% } %>
+          <% if(currentVendor) {%>
+            <h5><a href ="/vendor/updates">UPDATES</a></h5>
+          <% } %>
+          <p><br><small class="text-muted"></small></p>
+  
+  
+          
+        </div>
+        <!-- <div class="card-footer">
+          <a href="#">Find more</a>
+        </div> -->
       </div>
     </div>
     <div class="col-md-6 order-3 order-md-2">
@@ -58,6 +99,7 @@
       <h3><center>ALL AGREEMENTS</center></h3>
       </div>
       <br>
+      
       <% agreements.forEach(agreement => { %>
         <% if(agreement && agreement !== null) { %>
         
@@ -68,15 +110,21 @@
                 
               </div>
               <div class="flex-grow-1">
-                <h3> <small class="text-muted"><%=agreement.vendor.name %></small></h3>
+                <% if(currentMan) {%>
+                  <h3> <small class="text-muted"><%=agreement.vendor.name %></small></h3>
+                <%} %>
+                <% if(currentVendor) {%>
+                  <h3> <small class="text-muted"><%=agreement.manufacturer.name %></small></h3>
+                <%} %>
                 <p>
                   Raw material: <%=agreement.rawMaterial %>
                 </p>
                 <p>
                   Expiring on: <%= agreement.endDate.toLocaleDateString() %>
                 </p>
-                <div class="sus">
-            <a href="#">Read more</a>
+                <p>Accepted <i class="fas fa-check"></i></p>
+                <div class="sus"> 
+            <a href="#">More Info</a>
           </div>
               </div>
             </div>

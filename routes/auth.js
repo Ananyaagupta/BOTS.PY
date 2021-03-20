@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
       if (vendor) {
         const isMatched = await bcrypt.compare(password, vendor.password);
         if (!isMatched) {
-          return req.json({ msg: "Not Authorized!" });
+          return res.json({ msg: "Not Authorized!" });
         }
         req.session.currentUser = vendor;
         return res.redirect("/vendor/rfp");
@@ -73,6 +73,11 @@ router.post("/login", async (req, res) => {
     console.log(err);
     res.send("Error!");
   }
+});
+
+router.get("/logout", (req, res) => {
+  req.session.currentUser = null;
+  res.redirect("/auth");
 });
 
 module.exports = router;

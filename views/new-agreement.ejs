@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>form</title>
+    <title>Send RFP</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
@@ -17,6 +17,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/e26494b487.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <br />
@@ -131,7 +135,7 @@
           },
           (status, data) => {
             $(':input[type="submit"]').html(
-              "RFP Sent <span class='material-icons-outlined'></span>"
+              "RFP Sent <i class='fas fa-check'></i>"
             );
           }
         );

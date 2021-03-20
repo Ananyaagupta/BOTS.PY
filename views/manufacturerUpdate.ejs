@@ -1,0 +1,152 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Proposal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
+    <link
+      rel="icon"
+      href="/images/favicon-16x16.png"
+      type="image/x-icon"
+      sizes="16x16"
+    />
+    <link rel="stylesheet" href="/styles/readmoree.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/e26494b487.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <br />
+    <center><h1>PROPOSAL</h1></center>
+    <div class="container">
+      <header class="header">
+        <h1 id="title" class="text-center"><%=rfp.rawMaterial%></h1>
+        <div class="rfp-detail" style="width: 100%">
+          <div
+            class="manufacturer"
+            style="display: flex; justify-content: space-between"
+          >
+            <% if(currentVendor) {%>
+            <p>Manufacturer: <%= rfp.manufacturer.name %></p>
+            <%} %> <% if(currentMan) {%>
+            <p>Vendor: <%= rfp.vendor.name %></p>
+            <%} %>
+            <p>Deadline: <%= rfp.deadline.toLocaleDateString() %></p>
+          </div>
+          <div style="display: none" id="rfpId"><%=rfp._id%></div>
+          <div
+            class="dates"
+            style="display: flex; justify-content: space-between"
+          >
+            <p>Expected Start Date: <%=rfp.startDate.toLocaleDateString() %></p>
+            <p>Expected End Date: <%=rfp.endDate.toLocaleDateString() %></p>
+          </div>
+          <div>
+            <% if(rfp.costPerUnit) {%>
+            <p>Cost Per Unit: <%= rfp.costPerUnit %></p>
+            <% } %> <% if(rfp.delivery) {%>
+            <p>Delivery Mode: <%= rfp.delivery %></p>
+            <% } %> <% if(rfp.comment) {%>
+            <p>Comment: <%= rfp.comment %></p>
+            <% } %>
+          </div>
+        </div>
+        <% if(currentMan) {%>
+        <div class="buttons">
+          <form
+            style="background: transparent"
+            action="/manufacturer/accept/<%=rfp._id%>"
+            method="POST"
+          >
+            <button class="btn btn-success" id="accept">Accept</button>
+          </form>
+          <form
+            action="/manufacturer/delete/<%=rfp._id%>"
+            method="POST"
+            style="background: transparent"
+          >
+            <button class="btn btn-danger" id="reject">Reject</button>
+          </form>
+        </div>
+        <div class="message success"></div>
+        <div class="message fail"></div>
+        <% } %>
+      </header>
+      <form id="survey-form">
+        <h2>NEGOTIATE</h2>
+        <div style="margin-top: 1rem">
+          <h2>Start Date</h2>
+          <input type="date" id="startDate" />
+        </div>
+        <div style="margin-top: 1rem">
+          <h2>End Date</h2>
+          <input type="date" id="endDate" />
+        </div>
+        <div style="margin-top: 1rem">
+          <h2>Total Cost Per Unit</h2>
+          <input id="cost" />
+        </div>
+        <div style="margin-top: 1rem">
+          <h2>Delivery Mode</h2>
+          <input id="deliveryMode" type="text" />
+        </div>
+        <br />
+        <br />
+        <div id="agreementId" style="display: none"><%=rfp._id %></div>
+        <div class="form-group">
+          <p>Comments</p>
+          <textarea
+            id="comments"
+            class="input-textarea"
+            name="comment"
+            placeholder="Enter your comment here..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" id="submit" class="submit-button">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- partial -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+      $("#submit").click(function (event) {
+        event.preventDefault();
+        $(':input[type="submit"]').prop("disabled", true);
+        $(':input[type="submit"]').html("<div class='loader'></div>");
+        const costPerUnit = $("#cost").val();
+        const startDate = $("#startDate").val();
+        const endDate = $("#endDate").val();
+        const deliveryMode = $("#deliveryMode").val();
+        const comment = $("#comments").val();
+        const id = $("#agreementId").html();
+        $.post(
+          `/manufacturer/update-proposal/${id}`,
+          {
+            costPerUnit,
+            startDate,
+            endDate,
+            deliveryMode,
+            comment,
+          },
+          (status, data) => {
+            $(':input[type="submit"]').html(
+              "Proposal Sent <i class='fas fa-check'></i>>"
+            );
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

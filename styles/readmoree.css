@@ -75,6 +75,28 @@ button {
   border: none;
 }
 
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  cursor: pointer;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-success {
+  background-color: #37af65;
+  color: white;
+}
+
+.btn-danger {
+  background-color: rgb(170, 4, 4);
+  color: white;
+}
+
 .container {
   width: 100%;
   margin: 3.125rem auto 0 auto;
