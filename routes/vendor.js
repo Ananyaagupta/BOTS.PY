@@ -44,12 +44,14 @@ router.get("/updates/:id", async (req, res) => {
 });
 
 router.get("/send-proposal/:id", async (req, res) => {
+
   try {
     const rfp = await Agreement.findById(req.params.id);
     res.render("vendorProposal", {
-      currenVendor: req.session.currentUser,
+      currentVendor: req.session.currentUser,
       rfp,
     });
+
   } catch (err) {
     console.log(err);
     res.send("Error!");
@@ -57,6 +59,7 @@ router.get("/send-proposal/:id", async (req, res) => {
 });
 
 router.post("/send-proposal/:id", async (req, res) => {
+  console.log(req.body);
   const { costPerUnit, startDate, endDate, deliveryMode, comment } = req.body;
 
   try {
