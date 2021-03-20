@@ -2,10 +2,17 @@ const express = require("express");
 const router = express.Router();
 const Agreement = require("../models/Agreement");
 
-router.get("/rfp/:id", async (req, res) => {
+router.get("/rfp", async (req, res) => {
   try {
-    const rfp = await Agreement.find({ vendor: req.params.id, stage: "rfp" });
-    res.json({ rfp });
+    const rfps = await Agreement.find({
+      vendor: req.session.currentUser._id,
+      stage: "rfp",
+    }).populate("manufacturer");
+    // console.log(rfps);
+    res.render("vendorProfile", {
+      currentVendor: req.session.currentUser,
+      rfps,
+    });
   } catch (err) {
     res.send("Error!");
   }
@@ -30,6 +37,19 @@ router.get("/updates/:id", async (req, res) => {
       lastUpdatedBy: "manufacturer",
     });
     res.json({ updates });
+  } catch (err) {
+    console.log(err);
+    res.send("Error!");
+  }
+});
+
+router.get("/send-proposal/:id", async (req, res) => {
+  try {
+    const rfp = await Agreement.findById(req.params.id);
+    res.render("vendorProposal", {
+      currenVendor: req.session.currentUser,
+      rfp,
+    });
   } catch (err) {
     console.log(err);
     res.send("Error!");

@@ -20,7 +20,7 @@
   </head>
   <body>
     <br />
-    <center><h1>CREATE A NEW PROPOSAL</h1></center>
+    <center><h1>SEND RFP TO VENDORS</h1></center>
     <div class="container">
       <header class="header">
         <h1 id="title" class="text-center"><%=agreement.rawMaterial%></h1>
@@ -105,6 +105,7 @@
         const rawMaterial = $("#title").html();
         const comment = $("#comments").val();
         const startDate = $("#startDate").val();
+        const deadline = $("#deadline").val();
         const endDate = $("#endDate").val();
         const vendors = $("#vendors-list input:checkbox:checked")
           .map(function () {
@@ -125,6 +126,7 @@
             comment,
             startDate,
             endDate,
+            deadline,
             vendors,
           },
           (status, data) => {

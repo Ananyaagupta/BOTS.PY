@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
           return req.json({ msg: "Not Authorized!" });
         }
         req.session.currentUser = vendor;
-        return res.json({ vendor });
+        return res.redirect("/vendor/rfp");
       } else {
         res.json({ msg: "Not Found!" });
       }

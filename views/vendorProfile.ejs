@@ -32,7 +32,7 @@
           <div class="row">
             <div class="col-12">
               
-              <h5 class="mb-0"><%=currentMan.name %></h5>
+              <h5 class="mb-0"><%=currentVendor.name %></h5>
               <h5><a href="#" class="text-body"><small class="text-muted">@prestige</small></a></h5>
             </div>
             
@@ -42,7 +42,7 @@
       </div>
       <div class="card shadow mb-3">
         <div class="card-body">
-          <h5><a href ="">AGREEMENTS</a></h5>
+          <h5><a href ="">CURRENT AGREEMENTS</a></h5>
           <p><br><small class="text-muted"></small></p>
 
 
@@ -55,35 +55,43 @@
     </div>
     <div class="col-md-6 order-3 order-md-2">
       <div class="head">
-      <h3><center>AGREEMENTS ABOUT TO GET EXPIRED</center></h3>
+      <h3><center>NEW RFPs</center></h3>
       </div>
       <br>
-      <% expiringAgreements.forEach(agreement => { %>
-        <% if(agreement && agreement !== null) { %>
-        
-        <div class="card shadow mb-3">
-          <div class="card-body">
-            <div class="d-flex">
-              <div class="flex-shrink-1">
-                
-              </div>
-              <div class="flex-grow-1">
-                <h3> <small class="text-muted"><%=agreement.vendor.name %></small></h3>
-                <p>
-                  Raw material: <%=agreement.rawMaterial %>
-                </p>
-                <p>
-                  Expiring on: <%= agreement.endDate.toLocaleDateString() %>
-                </p>
-                <div class="sus">
-            <a href="/manufacturer/agreement/<%=agreement._id%>">Read more</a>
-          </div>
+      <% if(rfps && rfps.length > 0) { %>
+
+        <% rfps.forEach(rfp => { %>
+          <% if(rfp && rfp !== null) { %>
+            <% console.log(rfp) %>
+          
+          <div class="card shadow mb-3">
+            <div class="card-body">
+              <div class="d-flex">
+                <div class="flex-shrink-1">
+                  
+                </div>
+                <div class="flex-grow-1">
+                  <h3> <small class="text-muted"><%=rfp.manufacturer.name %></small></h3>
+                  <p>
+                    Raw material: <%=rfp.rawMaterial %>
+                  </p>
+                  <p>
+                    Deadline for proposal: <%= rfp.deadline.toLocaleDateString() %>
+                  </p>
+                  <div class="sus">
+              <a href="/vendor/send-proposal/<%=rfp._id%>">Read more</a>
+            </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+  
+        <% }}) %>
 
-      <% }}) %>
+      <% } else { %>
+        <h3>No Pendinf RFPs!</h3>
+
+        <% } %>
     </div>
       
      
