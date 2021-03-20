@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
   const { email, password, type } = req.body;
   // console.log(req.body);
   try {
-    if (type === "Manufacturer") {
+    if (type === "manufacturer") {
       const manufacturer = await Manufacturer.findOne({ email });
       if (manufacturer) {
         const isMatched = await bcrypt.compare(password, manufacturer.password);
@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
       } else {
         res.json({ msg: "Not Found!" });
       }
-    } else if (type === "Vendor") {
+    } else if (type === "vendor") {
       const vendor = await Vendor.findOne({ email });
       if (vendor) {
         const isMatched = await bcrypt.compare(password, vendor.password);
