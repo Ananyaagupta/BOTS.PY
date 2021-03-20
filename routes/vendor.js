@@ -58,6 +58,7 @@ router.get("/send-proposal/:id", async (req, res) => {
     const rfp = await Agreement.findById(req.params.id).populate(
       "manufacturer"
     );
+    console.log(rfp);
     res.render("proposal", {
       currentVendor: req.session.currentUser,
       rfp,
