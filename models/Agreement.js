@@ -7,7 +7,6 @@ const AgreementSchema = new mongoose.Schema({
   },
   costPerUnit: {
     type: String,
-    required: true,
   },
   startDate: {
     type: Date,
@@ -26,6 +25,12 @@ const AgreementSchema = new mongoose.Schema({
   stage: {
     type: String,
     required: true,
+  },
+  lastUpdatedBy: {
+    type: String,
+  },
+  comment: {
+    type: String,
   },
   manufacturer: {
     type: mongoose.Schema.Types.ObjectId,

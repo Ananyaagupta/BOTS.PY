@@ -4,6 +4,8 @@ const session = require("express-session");
 const connectDB = require("./config/db");
 const manufacturerRoutes = require("./routes/manufacturer");
 const authRoutes = require("./routes/auth");
+const rawMaterialRoutes = require("./routes/rawMaterials");
+const vendorRoutes = require("./routes/vendor");
 
 connectDB();
 
@@ -26,6 +28,8 @@ app.get("/", (req, res) => {
 
 app.use("/manufacturer", manufacturerRoutes);
 app.use("/auth", authRoutes);
+app.use("/vendor", vendorRoutes);
+app.use("/raw-materials", rawMaterialRoutes);
 
 const port = process.env.PORT || 3000;
 
