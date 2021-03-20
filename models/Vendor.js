@@ -13,7 +13,6 @@ const VendorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rawMaterials: [{ type: String, required: true }],
 });
 
 module.exports = mongoose.model("vendor", VendorSchema);

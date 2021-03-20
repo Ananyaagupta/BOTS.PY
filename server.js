@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
+const session = require("express-session");
 const connectDB = require("./config/db");
 const manufacturerRoutes = require("./routes/manufacturer");
 const authRoutes = require("./routes/auth");
@@ -11,9 +11,17 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use(express.json({ extended: false }));
+app.use(
+  session({
+    secret: "sessi0nS3cr3t",
+    saveUninitialized: true,
+    resave: false,
+  })
+);
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.send("API running!");
+  res.render("home");
 });
 
 app.use("/manufacturer", manufacturerRoutes);

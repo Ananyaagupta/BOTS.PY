@@ -22,11 +22,10 @@ const AgreementSchema = new mongoose.Schema({
   },
   deadline: {
     type: Date,
-    required: true,
   },
-  accepted: {
-    type: Boolean,
-    default: false,
+  stage: {
+    type: String,
+    required: true,
   },
   manufacturer: {
     type: mongoose.Schema.Types.ObjectId,

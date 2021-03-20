@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
         password: hashPassword,
       });
       await manufacturer.save();
+      req.session.currentUser = manufacturer;
       res.json({ manufacturer });
     } else if (type === "vendor") {
       var vendor = new Vendor({
@@ -26,6 +27,7 @@ router.post("/", async (req, res) => {
       });
 
       await vendor.save();
+      req.session.currentUser = vendor;
       res.json({ vendor });
     }
   } catch (err) {
@@ -45,6 +47,7 @@ router.post("/login", async (req, res) => {
         if (!isMatched) {
           return req.json({ msg: "Not Authorized!" });
         }
+        req.session.currentUser = manufacturer;
         return res.json({ manufacturer });
       } else {
         res.json({ msg: "Not Found!" });
@@ -56,6 +59,7 @@ router.post("/login", async (req, res) => {
         if (!isMatched) {
           return req.json({ msg: "Not Authorized!" });
         }
+        req.session.currentUser = vendor;
         return res.json({ vendor });
       } else {
         res.json({ msg: "Not Found!" });
