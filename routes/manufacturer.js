@@ -4,12 +4,27 @@ const Agreement = require("../models/Agreement");
 const RawMaterials = require("../models/RawMaterials");
 const Vendors = require("./../models/Vendor");
 
-router.get("/expiring-agreements/:id", async (req, res) => {
+router.get("/all-agreements", async (req, res) => {
+  try {
+    const agreements = await Agreement.find({ stage: "accepted" }).populate(
+      "vendor"
+    );
+    res.render("agreements", {
+      currentMan: req.session.currentUser,
+      agreements,
+    });
+  } catch (err) {
+    console.log(err);
+    res.send("Error!");
+  }
+});
+
+router.get("/expiring-agreements", async (req, res) => {
   try {
     const agreements = await Agreement.find({
-      manufacturer: req.params.id,
+      manufacturer: req.session.currentUser._id,
       stage: "accepted",
-    });
+    }).populate("vendor");
     const currDate = new Date();
     const expiringAgreements = agreements.map((agreement) => {
       const diff = agreement.endDate.getTime() - currDate.getTime();
@@ -18,14 +33,39 @@ router.get("/expiring-agreements/:id", async (req, res) => {
         return agreement;
       }
     });
-    res.json({ expiringAgreements });
+    console.log(expiringAgreements);
+    res.render("profile", {
+      expiringAgreements,
+      currentMan: req.session.currentUser,
+    });
   } catch (err) {
     console.log(err);
     res.send("Error!");
   }
 });
 
-router.post("/send-rfp/:id", async (req, res) => {
+router.get("/agreement/:id", async (req, res) => {
+  try {
+    const agreement = await Agreement.findById(req.params.id).populate(
+      "vendor"
+    );
+    const rawMaterial = await RawMaterials.findOne({
+      name: agreement.rawMaterial,
+    });
+    const { vendors } = rawMaterial;
+    var vendorsList = [];
+    for (const vendor of vendors) {
+      const foundVendor = await Vendors.findById(vendor);
+      vendorsList.push(foundVendor);
+    }
+    res.render("new-agreement", { agreement, vendorsList });
+  } catch (err) {
+    console.log(err);
+    res.send("Error!");
+  }
+});
+
+router.post("/send-rfp", async (req, res) => {
   const {
     rawMaterial,
     startDate,
@@ -44,7 +84,7 @@ router.post("/send-rfp/:id", async (req, res) => {
       stage,
       comment,
       lastUpdatedBy: "manufacturer",
-      manufacturer: req.params.id,
+      manufacturer: req.session.currentUser._id,
       vendor: vendor,
     });
 
@@ -53,22 +93,22 @@ router.post("/send-rfp/:id", async (req, res) => {
   res.send("RFP sent!");
 });
 
-router.get("/vendors/:name", async (req, res) => {
-  try {
-    const rawMaterial = await RawMaterials.findOne({ name: req.params.name });
-    const { vendors } = rawMaterial;
-    var vendorsList = [];
-    for (const vendor of vendors) {
-      const foundVendor = await Vendors.findById(vendor);
-      vendorsList.push(foundVendor);
-    }
+// router.get("/vendors/:name", async (req, res) => {
+//   try {
+//     const rawMaterial = await RawMaterials.findOne({ name: req.params.name });
+//     const { vendors } = rawMaterial;
+//     var vendorsList = [];
+//     for (const vendor of vendors) {
+//       const foundVendor = await Vendors.findById(vendor);
+//       vendorsList.push(foundVendor);
+//     }
 
-    res.json({ vendorsList });
-  } catch (err) {
-    console.log(err);
-    res.send("Error!");
-  }
-});
+//     res.json({ vendorsList });
+//   } catch (err) {
+//     console.log(err);
+//     res.send("Error!");
+//   }
+// });
 
 router.get("/pending/:id", async (req, res) => {
   try {

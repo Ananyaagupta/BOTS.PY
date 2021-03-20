@@ -4,7 +4,11 @@ const Manufacturer = require("./../models/Manufacturer");
 const Vendor = require("./../models/Vendor");
 const bcrypt = require("bcryptjs");
 
-router.post("/", async (req, res) => {
+router.get("/", (req, res) => {
+  res.render("login");
+});
+
+router.post("/signup", async (req, res) => {
   const { name, email, password, type, rawMaterials } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(password, salt);
@@ -38,7 +42,7 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password, type } = req.body;
-  // console.log(req.body);
+  console.log(req.body);
   try {
     if (type === "manufacturer") {
       const manufacturer = await Manufacturer.findOne({ email });
@@ -48,7 +52,7 @@ router.post("/login", async (req, res) => {
           return req.json({ msg: "Not Authorized!" });
         }
         req.session.currentUser = manufacturer;
-        return res.json({ manufacturer });
+        return res.redirect("/manufacturer/expiring-agreements");
       } else {
         res.json({ msg: "Not Found!" });
       }

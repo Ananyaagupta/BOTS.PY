@@ -1,0 +1,139 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
+    <link
+      rel="icon"
+      href="/images/favicon-16x16.png"
+      type="image/x-icon"
+      sizes="16x16"
+    />
+    <link rel="stylesheet" href="/styles/readmoree.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <br />
+    <center><h1>CREATE A NEW PROPOSAL</h1></center>
+    <div class="container">
+      <header class="header">
+        <h1 id="title" class="text-center"><%=agreement.rawMaterial%></h1>
+        <div class="agreement-detail" style="width: 100%">
+          <div
+            class="dates"
+            style="display: flex; justify-content: space-between"
+          >
+            <p>Start Date: <%=agreement.startDate.toLocaleDateString() %></p>
+            <p>End Date: <%=agreement.endDate.toLocaleDateString() %></p>
+          </div>
+          <div
+            class="vendor"
+            style="display: flex; justify-content: space-between"
+          >
+            <p>Current vendor: <%= agreement.vendor.name %></p>
+            <p>Cost Per Unit: <%= agreement.costPerUnit %></p>
+          </div>
+        </div>
+      </header>
+      <form id="survey-form">
+        <div style="margin-top: 1rem">
+          <h2>Expected Start Date</h2>
+          <input type="date" id="startDate" />
+        </div>
+        <div style="margin-top: 1rem">
+          <h2>Expected End Date</h2>
+          <input type="date" id="endDate" />
+        </div>
+        <div style="margin-top: 1rem">
+          <h2>Deadline for Proposal</h2>
+          <input type="date" id="deadline" />
+        </div>
+        <br />
+        <br />
+
+        <div class="form-group">
+          <p>
+            Which vendors to send the RFP to?
+            <span class="clue">(Check all that apply)</span>
+          </p>
+          <div id="vendors-list">
+            <% vendorsList.forEach(vendor => { %>
+            <label
+              ><input
+                name="prefer"
+                value="<%=vendor._id%>"
+                type="checkbox"
+                class="input-checkbox"
+              /><%=vendor.name%></label
+            >
+
+            <% }) %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <p>Any comments or suggestions?</p>
+          <textarea
+            id="comments"
+            class="input-textarea"
+            name="comment"
+            placeholder="Enter your comment here..."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" id="submit" class="submit-button">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- partial -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+      $("#submit").click(function (event) {
+        event.preventDefault();
+        $(':input[type="submit"]').prop("disabled", true);
+        $(':input[type="submit"]').html("<div class='loader'></div>");
+        const rawMaterial = $("#title").html();
+        const comment = $("#comments").val();
+        const startDate = $("#startDate").val();
+        const endDate = $("#endDate").val();
+        const vendors = $("#vendors-list input:checkbox:checked")
+          .map(function () {
+            return $(this).val();
+          })
+          .get();
+        // <----
+        // console.log({ rawMaterial, comment, startDate, endDate, vendors });
+        // setTimeout(() => {
+        //   $(':input[type="submit"]').html(
+        //     "RFP Sent <span class='material-icons-outlined'></span>"
+        //   );
+        // }, 2000);
+        $.post(
+          "/manufacturer/send-rfp",
+          {
+            rawMaterial,
+            comment,
+            startDate,
+            endDate,
+            vendors,
+          },
+          (status, data) => {
+            $(':input[type="submit"]').html(
+              "RFP Sent <span class='material-icons-outlined'></span>"
+            );
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
