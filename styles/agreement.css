@@ -1,12 +1,15 @@
 body {
   font-family: roboto;
-  
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgb(207, 97, 40);
 }
 
 .s_greatwork {
   padding: 25px 0;
   background-image: url("/images/bg.jpg");
- 
 }
 .s_greatwork .b_shnw_work {
   background-color: #fff;
@@ -70,4 +73,3 @@ body {
 .b_readmore .b_space i {
   padding-right: 5px;
 }
-

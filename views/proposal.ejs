@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>form</title>
+    <title>Proposal</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
@@ -20,7 +20,7 @@
   </head>
   <body>
     <br />
-    <center><h1>SEND PROPOSAL TO MANUFACTURER</h1></center>
+    <center><h1>PROPOSAL</h1></center>
     <div class="container">
       <header class="header">
         <h1 id="title" class="text-center"><%=rfp.rawMaterial%></h1>
@@ -29,43 +29,53 @@
             class="manufacturer"
             style="display: flex; justify-content: space-between"
           >
-            <p>Manufacturer: <%= rfp.manufacturer %></p>
+            <% if(currentVendor) {%>
+            <p>Manufacturer: <%= rfp.manufacturer.name %></p>
+            <%} %> <% if(currentMan) {%>
+            <p>Vendor: <%= rfp.vendor.name %></p>
+            <%} %>
             <p>Deadline: <%= rfp.deadline.toLocaleDateString() %></p>
           </div>
           <div
             class="dates"
             style="display: flex; justify-content: space-between"
           >
-            <p>Start Date: <%=rfp.startDate.toLocaleDateString() %></p>
-            <p>End Date: <%=rfp.endDate.toLocaleDateString() %></p>
+            <p>Expected Start Date: <%=rfp.startDate.toLocaleDateString() %></p>
+            <p>Expected End Date: <%=rfp.endDate.toLocaleDateString() %></p>
           </div>
           <div>
-          <p>Comments: <%=rfp.comment %></p>
+            <% if(rfp.costPerUnit) {%>
+            <p>Cost Per Unit: <%= rfp.costPerUnit %></p>
+            <% } %> <% if(rfp.delivery) {%>
+            <p>Delivery Mode: <%= rfp.delivery %></p>
+            <% } %> <% if(rfp.comment) {%>
+            <p>Comment: <%= rfp.comment %></p>
+            <% } %>
+          </div>
         </div>
-    </div>
       </header>
       <form id="survey-form">
         <div style="margin-top: 1rem">
-          <h2>Expected Start Date</h2>
-          <input type="date" id="startDate" value=<%=rfp.startDate.toLocaleDateString().value %> />
+          <h2>Start Date</h2>
+          <input type="date" id="startDate" />
         </div>
         <div style="margin-top: 1rem">
-          <h2>Expected End Date</h2>
-          <input type="date" id="endDate" value=<%=rfp.endDate.toLocaleDateString().value %>/>
+          <h2>End Date</h2>
+          <input type="date" id="endDate" />
         </div>
         <div style="margin-top: 1rem">
           <h2>Total Cost Per Unit</h2>
           <input id="cost" />
         </div>
         <div style="margin-top: 1rem">
-            <h2>Delivery Mode</h2>
-            <input id="deliveryMode" type="text" />
-          </div>
+          <h2>Delivery Mode</h2>
+          <input id="deliveryMode" type="text" />
+        </div>
         <br />
         <br />
-        <div  id="agreementId" style="display: none;"><%=rfp._id %></div>
+        <div id="agreementId" style="display: none"><%=rfp._id %></div>
         <div class="form-group">
-          <p>Any comments or suggestions?</p>
+          <p>Comments</p>
           <textarea
             id="comments"
             class="input-textarea"
@@ -92,10 +102,9 @@
         const costPerUnit = $("#cost").val();
         const startDate = $("#startDate").val();
         const endDate = $("#endDate").val();
-        const deliveryMode = $("#deliveryMode").html();
-        const comment = $("#comments").val()
+        const deliveryMode = $("#deliveryMode").val();
+        const comment = $("#comments").val();
         const id = $("#agreementId").html();
-        console.log(id)
         $.post(
           `/vendor/send-proposal/${id}`,
           {
@@ -103,7 +112,7 @@
             startDate,
             endDate,
             deliveryMode,
-            comment
+            comment,
           },
           (status, data) => {
             $(':input[type="submit"]').html(

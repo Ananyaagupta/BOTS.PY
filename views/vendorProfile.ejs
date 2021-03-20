@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>timeline</title>
+  <title>Vendor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'><link rel="stylesheet" href="/styles/profile.css">
 
 </head>
@@ -13,11 +13,16 @@
  <div class="head" style="position:absolute; left:100px"><H3>AGREEMI</H3></div>
   <div class="nav-logo" > 
  </div>
-  <div class="nav-content float">
+  <div class="nav-content d-flex">
   <ul class="navbar-nav" >
     <li class="nav-item">
       <a class="nav-link active" href="/home.html"><i class="fas fa-home fa-2x"></i></a>
-    </li></ul></div>
+    </li>
+    </ul>
+    <div>
+      <a class="nav-link active" href="/auth/logout">Logout</a>
+    </div>
+  </div>
     
  
    
@@ -42,14 +47,27 @@
       </div>
       <div class="card shadow mb-3">
         <div class="card-body">
-          <h5><a href ="">CURRENT AGREEMENTS</a></h5>
+          <h5><a href ="/vendor/accepted-agreements">CURRENT AGREEMENTS</a></h5>
           <p><br><small class="text-muted"></small></p>
 
 
           
         </div>
-        <div class="card-footer">
-          <a href="/manufacturer/all-agreements">Find more</a>
+      </div>
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5><a href ="/vendor/pending">PENDING</a></h5>
+          <p><br><small class="text-muted"></small></p>
+
+
+          
+        </div>
+      </div>
+      <div class="card shadow mb-3">
+        <div class="card-body">
+          <h5><a href ="/vendor/updates">UPDATES </a></h5>
+          <p><br><small class="text-muted"></small></p>
+          
         </div>
       </div>
     </div>
@@ -89,7 +107,7 @@
         <% }}) %>
 
       <% } else { %>
-        <h3>No Pendinf RFPs!</h3>
+        <h3 style="color: white;">No Pendinf RFPs!</h3>
 
         <% } %>
     </div>

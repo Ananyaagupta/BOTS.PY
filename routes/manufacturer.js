@@ -1,4 +1,5 @@
 const express = require("express");
+const { findById } = require("../models/Agreement");
 const router = express.Router();
 const Agreement = require("../models/Agreement");
 const RawMaterials = require("../models/RawMaterials");
@@ -12,6 +13,7 @@ router.get("/all-agreements", async (req, res) => {
     res.render("agreements", {
       currentMan: req.session.currentUser,
       agreements,
+      currentVendor: null,
     });
   } catch (err) {
     console.log(err);
@@ -110,13 +112,17 @@ router.post("/send-rfp", async (req, res) => {
 //   }
 // });
 
-router.get("/pending/:id", async (req, res) => {
+router.get("/pending", async (req, res) => {
   try {
     const proposals = await Agreement.find({
-      manufacturer: req.params.id,
+      manufacturer: req.session.currentUser._id,
       stage: "proposal",
+    }).populate("vendor");
+    res.render("pending", {
+      agreements: proposals,
+      currentMan: req.session.currentUser,
+      currentVendor: null,
     });
-    res.json({ proposals });
   } catch (err) {
     console.log(err);
     res.send("Error!");
@@ -134,14 +140,34 @@ router.post("/make-agreement", async (req, res) => {
   }
 });
 
-router.get("/updates/:id", async (req, res) => {
+router.get("/updates", async (req, res) => {
   try {
     const updates = await Agreement.find({
-      manufacturer: req.params.id,
+      manufacturer: req.session.currentUser._id,
       stage: "proposal",
       lastUpdatedBy: "vendor",
+    }).populate("vendor");
+    res.render("pending", {
+      agreements: updates,
+      currentMan: req.session.currentUser,
+      currentVendor: null,
     });
-    res.json({ updates });
+  } catch (err) {
+    console.log(err);
+    res.send("Error!");
+  }
+});
+
+router.get("/negotiate/:id", async (req, res) => {
+  try {
+    const agreement = await Agreement.findById(req.params.id).populate(
+      "vendor"
+    );
+    res.render("manufacturerUpdate", {
+      rfp: agreement,
+      currentMan: req.session.currentUser,
+      currentVendor: null,
+    });
   } catch (err) {
     console.log(err);
     res.send("Error!");
@@ -173,7 +199,7 @@ router.post("/update-proposal/:id", async (req, res) => {
 router.post("/accept/:id", async (req, res) => {
   try {
     await Agreement.findByIdAndUpdate(req.params.id, { stage: "accepted" });
-    res.json({ msg: "Acceped!" });
+    res.redirect("/manufacturer/all-agreements");
   } catch (err) {
     console.log(err);
     res.send("Error!");
@@ -183,7 +209,7 @@ router.post("/accept/:id", async (req, res) => {
 router.post("/delete/:id", async (req, res) => {
   try {
     await Agreement.findByIdAndDelete(req.params.id);
-    res.json({ msg: "Deleted!" });
+    res.redirect("/manufacturer/all-agreements");
   } catch (err) {
     console.log(err);
     res.send("Error!");
