@@ -37,10 +37,11 @@ router.get("/pending", async (req, res) => {
 router.get("/updates", async (req, res) => {
   try {
     const updates = await Agreement.find({
-      status: "proposal",
+      stage: "proposal",
       lastUpdatedBy: "manufacturer",
       vendor: req.session.currentUser._id,
     }).populate("manufacturer");
+    console.log(updates);
     res.render("pending", {
       agreements: updates,
       currentMan: null,
