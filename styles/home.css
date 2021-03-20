@@ -1,0 +1,91 @@
+body {
+    font-family: cursive;
+    background-image: url("/images/orange_bg.jpg");
+    margin-top: 5%;
+  
+  }
+  .bella{
+    font-size: 30px;
+    font-weight: 5000 !important; 
+    font-family: 'Open Sans', sans-serif;  
+    margin-left: 100px;
+    position: absolute;
+  
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: rgb(8, 8, 8);
+    background-color: #13c1ec;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(153, 153, 153);
+  }
+  
+  .button:hover {background-color: #0536d6c9}
+  
+  .button:active {
+    background-color: #fc4007;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+  
+  svg {
+    width: 35%;
+    overflow: visible;
+    max-width: 350px;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .right_boy {
+    opacity: 0;
+    transform: translatex(45%);
+    animation: real-man 1.5s ease-in-out forwards;
+  }
+  
+  #Right_boy_hand {
+    transform: rotate(-22deg);
+    transform-origin: 100% 0%;
+    animation: real-man 1s ease-in-out forwards 1.4s;
+  }
+  
+  #bag {
+    transform: rotate(-8deg);
+    transform-origin: 82% 53%;
+    animation: real-man 2.5s ease-in-out infinite alternate;
+  }
+  
+  .left_boy {
+    opacity: 0;
+    transform: translatex(-45%);
+    animation: real-man 1.5s ease-in-out forwards;
+  }
+  
+  #left_boy_hand {
+    transform: rotate(35deg);
+    transform-origin: 5% 25%;
+    animation: real-man 1s ease-in-out forwards 1.4s;
+  }
+  
+  #Left_boy_bag {
+    transform: rotate(8deg);
+    transform-origin: 0% 50%;
+    animation: real-man 2.5s ease-in-out infinite alternate;
+  }
+  
+  @keyframes real-man {
+    to {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }
+
+  
