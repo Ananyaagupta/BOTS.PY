@@ -1,0 +1,40 @@
+body{
+  background-image: url("/images/bg.jpg");
+}
+.my-pic {
+  top: -70px;
+}
+
+.nav-logo{
+  position: relative;
+  left:1420px;
+  background-color: rgba(34, 34, 34, 0.678);
+
+}
+
+.nav-content{
+  display: flex;
+  justify-content: flex-end;
+}
+
+h5,a{
+  color:rgb(207, 97, 7);
+}
+
+.card-body, .card-footer  {
+  background-color: rgba(165, 163, 163, 0.623);
+}
+
+.navbar{
+  background-color: rgba(34, 34, 34, 0.678);
+}
+
+.head{
+  color:rgb(207, 97, 7);
+}
+
+.sus{
+  background-color: rgba(201, 194, 194, 0.623);
+}
+
+
