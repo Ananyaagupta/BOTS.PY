@@ -176,7 +176,7 @@ router.get("/negotiate/:id", async (req, res) => {
 
 router.post("/update-proposal/:id", async (req, res) => {
   const { costPerUnit, startDate, endDate, deliveryMode, comment } = req.body;
-
+  console.log(deliveryMode);
   try {
     await Agreement.findOneAndUpdate(
       { _id: req.params.id },
