@@ -1,9 +1,8 @@
 // MongoDB connection
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const db =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://zacker:eIzyTR563HCosLKT@cluster0.bcnug.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const db = process.env.MONGODB_URI;
 
 const connectDB = () => {
   mongoose
