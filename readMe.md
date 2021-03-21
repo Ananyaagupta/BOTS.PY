@@ -11,7 +11,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project : Agreemi 
-The current process of sorting,setting and renewing the agreements is tedious and full of confusion and chaos. To solve this problem we present to you <b>Agreemi</b>. With the motto of bridging the gap between manufacturers and vendors, agreemi promises to optimise and digitize the entire process and be a game changer in the industry.
+The current process of sorting, settling and renewing the agreements is tedious process full of confusion and chaos. To solve this problem we present to you <b>Agreemi</b>. With the motto of bridging the gap between manufacturers and vendors, Agreemi promises to optimise and digitize the entire process and be a game changer in the industry.
 
 ## How it works
 1) Manufacturers can view all agreements and send Request for Proposal for expiring agreements.
