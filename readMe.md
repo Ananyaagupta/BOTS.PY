@@ -54,6 +54,20 @@ The current process of sorting, settling and renewing the agreements is tedious 
 ## Have a look yourself!
 <a href="https://agreemi.herokuapp.com/">https://agreemi.herokuapp.com/</a>
 
+<b>Manufacturer credentials: </b> <br><br>
+Email id:  sunpharma@gmail.com <br>
+Password: sunpharma123
+
+<b>Vendor Credentials:</b> <br>
+1. Email id: capsandchemicals@gmail.com <br>
+Password: capsandchemicals123
+
+2. Email id: softenterprises@gmail.com <br>
+Password: softenterprises123
+
+3. Email id: basf@gmail.com <br>
+Password: basf123
+
 ## Some Glimpses
 
 <p align="center"> 
