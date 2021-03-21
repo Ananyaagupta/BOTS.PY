@@ -176,14 +176,19 @@ router.get("/negotiate/:id", async (req, res) => {
 
 router.post("/update-proposal/:id", async (req, res) => {
   const { costPerUnit, startDate, endDate, deliveryMode, comment } = req.body;
-  console.log(deliveryMode);
+  var newDates = {};
+  if (startDate) {
+    newDates.startDate = startDate;
+  }
+  if (endDate) {
+    newDates.endDate = endDate;
+  }
   try {
     await Agreement.findOneAndUpdate(
       { _id: req.params.id },
       {
+        ...newDates,
         costPerUnit,
-        startDate,
-        endDate,
         deliveryMode,
         lastUpdatedBy: "manufacturer",
         comment,

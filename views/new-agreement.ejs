@@ -2,7 +2,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>Send RFP</title>
-    <link rel="icon" href="/images/favicon-16x16.png" type="image/x-icon" sizes="16x16">
+    <link
+      rel="icon"
+      href="/images/favicon-16x16.png"
+      type="image/x-icon"
+      sizes="16x16"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
@@ -42,22 +47,22 @@
             style="display: flex; justify-content: space-between"
           >
             <p>Current vendor: <%= agreement.vendor.name %></p>
-            <p>Cost Per Unit: <%= agreement.costPerUnit %></p>
+            <p>Cost Per Unit: <%= agreement.costPerUnit %> Rs</p>
           </div>
         </div>
       </header>
       <form id="survey-form">
         <div style="margin-top: 1rem">
           <h2>Expected Start Date</h2>
-          <input type="date" id="startDate" />
+          <input type="date" id="startDate" required />
         </div>
         <div style="margin-top: 1rem">
           <h2>Expected End Date</h2>
-          <input type="date" id="endDate" />
+          <input type="date" id="endDate" required />
         </div>
         <div style="margin-top: 1rem">
           <h2>Deadline for Proposal</h2>
-          <input type="date" id="deadline" />
+          <input type="date" id="deadline" required />
         </div>
         <br />
         <br />

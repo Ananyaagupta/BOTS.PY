@@ -97,8 +97,11 @@
                   <p>
                     Deadline for proposal: <%= rfp.deadline.toLocaleDateString() %>
                   </p>
+                  <% if(rfp.deadline < Date.now()) {%>
+                    <p style="color: rgb(150, 4, 4);">Deadline crossed </p>
+                  <%} %>
                   <div class="sus">
-              <a href="/vendor/send-proposal/<%=rfp._id%>">Read more</a>
+              <a href="/vendor/send-proposal/<%=rfp._id%>">More Info</a>
             </div>
                 </div>
               </div>
