@@ -10,7 +10,7 @@
 </p>
 
 <!-- ABOUT THE PROJECT -->
-### About The Project : Agreemi 
+## About The Project : Agreemi 
 The current process of sorting,setting and renewing the agreements is tedious and full of confusion and chaos. To solve this problem we present to you <b>Agreemi</b>. With the motto of bridging the gap between manufacturers and vendors, agreemi promises to optimise and digitize the entire process and be a game changer in the industry.
 
 ## How it works
@@ -39,16 +39,17 @@ The current process of sorting,setting and renewing the agreements is tedious an
 
 
 ## Built With
- HTML,CSS,JSS,Node.js,MongoDB,Express.js,Heroku  
+ HTML, CSS, JavaScript, Node.js, MongoDB, Express.js, Heroku  
 
 ## Implementation
 - HTML,CSS,JavaScript for front-end
-- Node.js in backend
-- MongoDB and Express.js for the database
+- Node.js and Express.js for backend
+- MongoDB for the database
 - Heroku for deployment
 
 ## Future Scope
 - Built in real-time communication between vendors and manufacturers
+- Push notifications for updates
 
 ## Have a look yourself!
 <a href="https://agreemi.herokuapp.com/">https://agreemi.herokuapp.com/</a>
