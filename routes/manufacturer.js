@@ -7,9 +7,10 @@ const Vendors = require("./../models/Vendor");
 
 router.get("/all-agreements", async (req, res) => {
   try {
-    const agreements = await Agreement.find({ stage: "accepted" }).populate(
-      "vendor"
-    );
+    const agreements = await Agreement.find({
+      stage: "accepted",
+      manufacturer: req.session.currentUser._id,
+    }).populate("vendor");
     res.render("agreements", {
       currentMan: req.session.currentUser,
       agreements,
