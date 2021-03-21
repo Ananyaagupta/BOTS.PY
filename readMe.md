@@ -10,20 +10,10 @@
 </p>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
-
-<p align="center"> 
-    <img src="snapshots/1.png"  width="1000">
-</p>
-<br><br>
-<p align="center"> 
-    <img src="snapshots/2.png"  width="1000">
-</p>
-
-### Our Solution : Agreemi
+### About The Project : Agreemi 
 The current process of sorting,setting and renewing the agreements is tedious and full of confusion and chaos. To solve this problem we present to you <b>Agreemi</b>. With the motto of bridging the gap between manufacturers and vendors, agreemi promises to optimise and digitize the entire process and be a game changer in the industry.
 
-### How it works
+## How it works
 1) Manufacturers can view all agreements and send Request for Proposal for expiring agreements.
 
 2) Vendors can reply with their proposals within the deadline.
@@ -34,7 +24,7 @@ The current process of sorting,setting and renewing the agreements is tedious an
 
 5) On acceptance the new agreement gets added to the list of all agreements.
 
-### Features
+## Features
 1) View all agreements as well as a list of agreements expiring in the next 15 days.
 
 2) Manufacturers can send Request For Proposal to all the vendors they wish.
@@ -48,23 +38,40 @@ The current process of sorting,setting and renewing the agreements is tedious an
 6) User friendly
 
 
-### Built With
+## Built With
  HTML,CSS,JSS,Node.js,MongoDB,Express.js,Heroku  
 
-## Implementation:  
-
+## Implementation
 - HTML,CSS,JavaScript for front-end
 - Node.js in backend
 - MongoDB and Express.js for the database
 - Heroku for deployment
 
-## Future Scope:construction::
+## Future Scope
 - Built in real-time communication between vendors and manufacturers
 
 ## Have a look yourself!
 <a href="https://agreemi.herokuapp.com/">https://agreemi.herokuapp.com/</a>
 
-## Contributors
+## Some Glimpses
+
+<p align="center"> 
+    <img src="snapshots/1.png"  width="1000">
+</p>
+<br><br>
+<p align="center"> 
+    <img src="snapshots/2.png"  width="1000">
+</p>
+<br><br>
+<p align="center"> 
+    <img src="snapshots/3.png"  width="1000">
+</p>
+<br><br>
+<p align="center"> 
+    <img src="snapshots/4.png"  width="1000">
+</p>
+
+## Contributors:
 1) [Ritik Kumar](https://github.com/iamr-kumar)
 2) [Muskan Agarwal](https://github.com/muskan278) 
 3) [Sahil Kaling](https://github.com/sahildotexe)
